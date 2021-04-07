@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import ListMovies from "../Components/ListMovies.js";
 import PaginationComponent from "../Components/PaginationComponent.js";
+import DummyComponent from "../Components/DummyComponent.js";
 
 function Count({ count }) {
   return <div>Count : {count}</div>;
@@ -13,6 +14,15 @@ export default function HomePage() {
   let [page, setPage] = useState(0);
   let [total, setTotal] = useState(0);
   let [reload, setReload] = useState(0);
+
+  const inSearchRef = useRef();
+
+  useEffect(() => {
+    //Send focus to the search input
+    inSearchRef.current.focus();
+
+    console.log("setting focus to input", inSearchRef.current.value);
+  });
 
   useEffect(
     () => {
@@ -26,6 +36,7 @@ export default function HomePage() {
       };
 
       console.log("Fetching DATA", query);
+
       fetchMovies();
 
       return () => {
@@ -43,11 +54,13 @@ export default function HomePage() {
   console.log("render HomePage", movies, query);
   return (
     <div>
+      <DummyComponent id="john"></DummyComponent>
       <h1>Movies Explorer</h1>
 
       <label className="form-label">
         Search:{" "}
         <input
+          ref={inSearchRef}
           className="form-control"
           type="text"
           onChange={(evt) => {
@@ -81,7 +94,13 @@ export default function HomePage() {
         onChangePage={setPage}
       ></PaginationComponent>
 
+      <hr />
+
+      <DummyComponent id="john"></DummyComponent>
+
       <Count count={reload} />
+
+      <DummyComponent id="alexis"></DummyComponent>
     </div>
   );
 }

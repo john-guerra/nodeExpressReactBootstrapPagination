@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const ListMovies = ({ movies }) => {
+const ListMovies = (props) => {
+  const { movies } = props;
+
   const renderMovies = () => {
     let res = [];
     let i = 0;

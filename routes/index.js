@@ -1,5 +1,6 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
+const path = require("path");
 
 const movies = Array.from({ length: 1000 }).map((m, i) => ({
   title: `Movie ${i}`,
@@ -29,5 +30,9 @@ router.get("/movies", function (req, res, next) {
   //   .skip(pageNumber > 0 ? (pageNumber - 1) * nPerPage : 0)
   //   .limit(nPerPage);
 });
+
+router.get("*", (req, res) =>
+  res.sendFile(path.resolve("front", "build", "index.html"))
+);
 
 module.exports = router;
